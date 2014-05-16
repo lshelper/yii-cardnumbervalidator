@@ -28,6 +28,12 @@
       rawvalue = value.replace(/[^\d]/g, '');
       if (!value.match(new RegExp(this.config.pattern, 'ig'))) {
         messages.push(this.config.message);
+      } else if (this.config.validateLength) {
+        if (this.config.minLength > 0 && rawvalue.length < this.config.minLength) {
+          messages.push(this.config.messageLengthTooShort);
+        } else if (this.config.maxLength > 0 && rawvalue.length > this.config.maxLength) {
+          messages.push(this.config.messageLengthTooLong);
+        }
       } else if (this.config.validateLuhn && !this.isValidLuhn(rawvalue)) {
         messages.push(this.config.messageLuhn);
       }

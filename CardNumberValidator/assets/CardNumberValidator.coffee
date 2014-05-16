@@ -14,9 +14,16 @@ class CardNumberValidator
   validate: (value, messages = []) ->
     rawvalue = value.replace(/[^\d]/g, '')
 
-    if (!value.match(new RegExp(@config.pattern, 'ig')))
+    if !value.match(new RegExp(@config.pattern, 'ig'))
       messages.push(@config.message)
-    else if (@config.validateLuhn && !@isValidLuhn(rawvalue))
+
+    else if @config.validateLength
+      if @config.minLength > 0 && rawvalue.length < @config.minLength
+        messages.push(@config.messageLengthTooShort);
+      else if @config.maxLength > 0 && rawvalue.length > @config.maxLength
+        messages.push(@config.messageLengthTooLong);
+
+    else if @config.validateLuhn && !@isValidLuhn(rawvalue)
       messages.push(@config.messageLuhn);
 
     messages

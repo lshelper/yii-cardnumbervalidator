@@ -123,8 +123,10 @@ class CardNumberValidator extends \CValidator
             'maxLength' => $this->maxLength,
             'allowEmpty' => $this->allowEmpty,
             'pattern' => $this->getPattern(),
-            'message' => $this->message,
-            'messageLuhn' => $this->messageLuhn
+            'message' => \Yii::t('creditcards', $this->message),
+            'messageLuhn' => \Yii::t('creditcards', $this->messageLuhn),
+            'messageLengthTooShort' => \Yii::t('creditcards', $this->messageLengthTooShort, $this->minLength),
+            'messageLengthTooLong' => \Yii::t('creditcards', $this->messageLengthTooLong, $this->maxLength)
         ]);
     }
 

@@ -114,12 +114,6 @@ class CardNumberValidator extends \CValidator
         return '(function(config) {'.$str.'})('.$this->getJavascriptConfig().')';
     }
 
-    public function getMessage()
-    {
-        $message = $this->message !== null ? $this->message : \Yii::t('validators', '{attribute} must be number.');
-        return $message;
-    }
-
     protected function getJavascriptConfig()
     {
         return \CJavaScript::encode([

@@ -38,7 +38,7 @@
 
   })();
 
-  window.capitalist = $.extend(window.capialist, {
+  window.lshelpers = $.extend(window.lshelpers, {
     CardNumberValidator: CardNumberValidator
   });
 

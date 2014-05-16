@@ -21,4 +21,4 @@ class CardNumberValidator
 
     messages
 
-window.capitalist = $.extend(window.capialist, {CardNumberValidator: CardNumberValidator});
+window.lshelpers = $.extend(window.lshelpers, {CardNumberValidator: CardNumberValidator});

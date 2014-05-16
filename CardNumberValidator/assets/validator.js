@@ -1,2 +1,2 @@
-var validator = new window.capitalist.CardNumberValidator(config);
+var validator = new window.lshelpers.CardNumberValidator(config);
 messages = $.extend(messages, validator.validate(value));

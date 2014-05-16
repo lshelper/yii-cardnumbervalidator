@@ -17,27 +17,31 @@
         sum += prodArr[mul][parseInt(luhn.charAt(len), 10)];
         mul ^= 1;
       }
-      return sum % 10 === 0 && sum > 0;
-    };
-
-    CardNumberValidator.prototype.validate = function(value, messages) {
-      var rawvalue;
-      if (messages == null) {
-        messages = [];
-      }
-      rawvalue = value.replace(/[^\d]/g, '');
-      if (!value.match(new RegExp(this.config.pattern, 'ig'))) {
-        messages.push(this.config.message);
-      } else if (this.config.validateLength) {
-        if (this.config.minLength > 0 && rawvalue.length < this.config.minLength) {
-          messages.push(this.config.messageLengthTooShort);
-        } else if (this.config.maxLength > 0 && rawvalue.length > this.config.maxLength) {
-          messages.push(this.config.messageLengthTooLong);
+      sum % 10 === 0 && sum > 0;
+      return {
+        validate: function(value, messages) {
+          var rawvalue;
+          if (messages == null) {
+            messages = [];
+          }
+          rawvalue = value.replace(/[^\d]/g, '');
+          if (!value.match(new RegExp(this.config.pattern, 'ig'))) {
+            messages.push(this.config.message);
+          } else {
+            if (this.config.validateLength) {
+              if (this.config.minLength > 0 && rawvalue.length < this.config.minLength) {
+                messages.push(this.config.messageLengthTooShort);
+              } else if (this.config.maxLength > 0 && rawvalue.length > this.config.maxLength) {
+                messages.push(this.config.messageLengthTooLong);
+              }
+            }
+            if (this.config.validateLuhn && !this.isValidLuhn(rawvalue)) {
+              messages.push(this.config.messageLuhn);
+            }
+          }
+          return messages;
         }
-      } else if (this.config.validateLuhn && !this.isValidLuhn(rawvalue)) {
-        messages.push(this.config.messageLuhn);
-      }
-      return messages;
+      };
     };
 
     return CardNumberValidator;

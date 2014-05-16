@@ -11,23 +11,21 @@ class CardNumberValidator
       mul ^= 1;
     sum % 10 is 0 && sum > 0;
 
-    validate: (value, messages = []) ->
-      rawvalue = value.replace(/[^\d]/g, '')
+  validate: (value, messages = []) ->
+    rawvalue = value.replace(/[^\d]/g, '')
 
-      if !value.match(new RegExp(@config.pattern, 'ig'))
-        messages.push(@config.message)
+    if !value.match(new RegExp(@config.pattern, 'ig'))
+      messages.push(@config.message)
 
-      else
-        if @config.validateLength
-          if @config.minLength > 0 && rawvalue.length < @config.minLength
-            messages.push(@config.messageLengthTooShort);
-          else if @config.maxLength > 0 && rawvalue.length > @config.maxLength
-            messages.push(@config.messageLengthTooLong);
+    else
+      if @config.validateLength
+        if @config.minLength > 0 && rawvalue.length < @config.minLength
+          messages.push(@config.messageLengthTooShort);
+        else if @config.maxLength > 0 && rawvalue.length > @config.maxLength
+          messages.push(@config.messageLengthTooLong);
 
-        if @config.validateLuhn && !@isValidLuhn(rawvalue)
-          messages.push(@config.messageLuhn);
-
-
-      messages
+      if @config.validateLuhn && !@isValidLuhn(rawvalue)
+        messages.push(@config.messageLuhn);
+    messages
 
 window.lshelpers = $.extend(window.lshelpers, {CardNumberValidator: CardNumberValidator});

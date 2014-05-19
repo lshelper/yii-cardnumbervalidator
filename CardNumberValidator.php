@@ -90,7 +90,7 @@ class CardNumberValidator extends \CValidator
 
     public function getPattern()
     {
-        return '#'.$this->pattern.'#';
+        return '#'.addcslashes($this->pattern, '#').'#';
     }
 
     public function deformat($value)

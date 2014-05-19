@@ -66,7 +66,7 @@ class CardNumberValidator extends \CValidator
 
         if ($this->validateLuhn)
         {
-            if ($this->isValidLuhn($rawvalue))
+            if (!$this->isValidLuhn($rawvalue))
             {
                 $object->addError($attribute, \Yii::t('creditcards', $this->messageLuhn));
                 return;
@@ -90,7 +90,7 @@ class CardNumberValidator extends \CValidator
 
     public function getPattern()
     {
-        return $this->pattern;
+        return '#'.$this->pattern.'#';
     }
 
     public function deformat($value)
@@ -122,7 +122,7 @@ class CardNumberValidator extends \CValidator
             'minLength' => $this->minLength,
             'maxLength' => $this->maxLength,
             'allowEmpty' => $this->allowEmpty,
-            'pattern' => $this->getPattern(),
+            'pattern' => $this->pattern,
             'message' => \Yii::t('creditcards', $this->message),
             'messageLuhn' => \Yii::t('creditcards', $this->messageLuhn),
             'messageLengthTooShort' => \Yii::t('creditcards', $this->messageLengthTooShort, $this->minLength),
